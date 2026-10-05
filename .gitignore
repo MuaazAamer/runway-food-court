@@ -1,1 +1,8 @@
 Backend/.venv/
+Backend/routes/temp.py
+__pycache__/
+*.py[cod]
+
+/package-lock.json
+Frontend/node_modules/
+Frontend/dist/

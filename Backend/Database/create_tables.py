@@ -21,8 +21,8 @@ CREATE TABLE IF NOT EXISTS items (
     FOREIGN KEY (category_id) REFERENCES categories (id)
 );
 """
-create_item_variants = """
-CREATE TABLE IF NOT EXISTS item_variants (
+create_item_price = """
+CREATE TABLE IF NOT EXISTS item_price (
     id INTEGER PRIMARY KEY,
     item_id INTEGER NOT NULL,
     label TEXT NOT NULL,
@@ -37,7 +37,7 @@ try:
     connection.execute("PRAGMA foreign_keys = ON")
     connection.execute(create_categories)
     connection.execute(create_items)
-    connection.execute(create_item_variants)
+    connection.execute(create_item_price)
     connection.commit()
 finally:
     connection.close()
