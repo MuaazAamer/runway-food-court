@@ -1,14 +1,13 @@
 import sqlite3
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
+from fastapi import APIRouter, HTTPException
 
-app = FastAPI()
+router = APIRouter()
 
 database = Path(__file__).resolve().parent.parent / "Database" / "runway-food-court.db"
 
-@app.get("/items/")
+@router.get("/items/")
 async def get_categories():
     select_categories = "SELECT * FROM items"
     connection = sqlite3.connect(database)

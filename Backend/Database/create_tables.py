@@ -32,12 +32,20 @@ CREATE TABLE IF NOT EXISTS item_price (
 );
 """
 
+create_table_credentials= """
+CREATE TABLE IF NOT EXISTS credentials (
+    id INTEGER PRIMARY KEY,
+    username TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL
+);
+"""
 connection = sqlite3.connect(database)
 try:
     connection.execute("PRAGMA foreign_keys = ON")
     connection.execute(create_categories)
     connection.execute(create_items)
     connection.execute(create_item_price)
+    connection.execute(create_table_credentials)
     connection.commit()
 finally:
     connection.close()

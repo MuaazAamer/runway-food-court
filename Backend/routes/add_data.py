@@ -1,10 +1,10 @@
 import sqlite3
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException
+from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
-app = FastAPI()
+router = APIRouter()
 
 database = Path(__file__).resolve().parent.parent / "Database" / "runway-food-court.db"
 
@@ -27,7 +27,7 @@ class ItemPrice(BaseModel):
     price: float
     is_active: int
 
-@app.post("/add_category/")
+@router.post("/add_category/")
 async def add_category(body: Category):
     if not body.name.strip():
         raise HTTPException(status_code=400, detail="missing required fields")
@@ -47,7 +47,7 @@ async def add_category(body: Category):
 
     return {"message": "added category"}
 
-@app.post("/add_items/")
+@router.post("/add_items/")
 async def add_items(body: Items):
     if not body.code.strip() or not body.name.strip():
         raise HTTPException(status_code=400, detail="missing required fields")
@@ -64,7 +64,7 @@ async def add_items(body: Items):
 
     return {"message": "added item"}
 
-@app.post("/add_item_price/")
+@router.post("/add_item_price/")
 async def add_item_price(body: ItemPrice):
     if not body.label.strip():
         raise HTTPException(status_code=400, detail="missing required fields")
